@@ -17,13 +17,13 @@
 
 - name: add docker gpg key.
   ansible.builtin.apt_key:
-    url: "{{ docker_repository_gpg_key }}"
+    url: "{{ docker_install_repository_gpg_key }}"
     state: present
   when: docker_install_repository
 
 - name: add docker repository.
   ansible.builtin.apt_repository:
-    repo: "{{ docker_repository_deb }}"
+    repo: "{{ docker_install_repository_deb }}"
     state: present
     update_cache: true
   when: docker_install_repository
