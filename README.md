@@ -1,10 +1,10 @@
 # ansible role docker
 
-install from galaxy
+1) install from galaxy
 ```
 ansible-galaxy install darexsu.docker
 ```
-Example playbook
+2) Example playbook
 ```
 ---
 - hosts: myservers
@@ -15,11 +15,11 @@ Example playbook
       vars:
         docker_install: true
 ```
-Install from Github (git installed on your server)
+1) Install from Github (git installed on your server)
 ```
 ansible-galaxy install git+https://github.com/darexsu/ansible-role-docker.git
 ```
-Example playbook
+2) Example playbook
 ```
 ---
 - hosts: myservers
