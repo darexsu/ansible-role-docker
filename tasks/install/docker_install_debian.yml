@@ -19,12 +19,14 @@
   ansible.builtin.apt_key:
     url: "{{ docker_repository_gpg_key }}"
     state: present
+  when: docker_install_repository
 
 - name: add docker repository.
   ansible.builtin.apt_repository:
     repo: "{{ docker_repository_deb }}"
     state: present
     update_cache: true
+  when: docker_install_repository
 
 - name: install docker packages.
   ansible.builtin.apt:
