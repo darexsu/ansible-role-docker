@@ -1,0 +1,34 @@
+- name: remove old version of docker.
+  ansible.builtin.package:
+    name:
+      - docker
+      - docker-engine
+    state: absent
+
+- name: ensure dependencies are installed.
+  ansible.builtin.apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+    state: present
+
+- name: add docker gpg key.
+  ansible.builtin.apt_key:
+    url: "{{ docker_repository_gpg_key }}"
+    state: present
+
+- name: add docker repository.
+  ansible.builtin.apt_repository:
+    repo: "{{ docker_repository_deb }}"
+    state: present
+    update_cache: true
+
+- name: install docker packages.
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  ignore_errors: yes
+  with_items: "{{ docker_install_list }}"
