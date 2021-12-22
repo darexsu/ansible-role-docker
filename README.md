@@ -5,7 +5,7 @@ ansible-galaxy install git+https://github.com/darexsu/ansible-role-docker.git
 2) Example playbook
 ```
 ---
-- hosts: myservers
+- hosts: all
   become: yes
 
   roles:
