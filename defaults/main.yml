@@ -1,6 +1,7 @@
 #----------Installation----------#
 docker_install: false
 docker_install_list: [ docker-ce ]
+docker_install_add_user_to_docker_group: true
 #-Custom repository
 docker_install_repository: true
 docker_install_repository_url: "https://download.docker.com/linux"
