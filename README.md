@@ -2,7 +2,7 @@
 Options:
   - Install Docker
 
-Requirements:
+Platforms:
   - Debian, Ubuntu
 
 Ansible dependencies:
