@@ -1,11 +1,17 @@
-# Docker for Debian
+# Ansible role Docker
 Options:
-  - install docker
-  
+  - Install Docker
+
+Requirements:
+  - Debian, Ubuntu
+
+Ansible dependencies:
+  - None
+
 Installation:
 1) Install from Github (git installed on your server)
 ```
-ansible-galaxy install git+https://github.com/darexsu/ansible-role-docker.git
+ansible-galaxy install git+https://github.com/darexsu/ansible-role-docker.git --force
 ```
 2) Example playbook
 ```
