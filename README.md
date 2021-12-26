@@ -1,12 +1,8 @@
 # Ansible role Docker
+Ansible dependencies: None
+Platforms: Debian, Ubuntu
 Options:
   - Install Docker
-
-Platforms:
-  - Debian, Ubuntu
-
-Ansible dependencies:
-  - None
 
 Installation:
 1) Install from Github (git installed on your server)
