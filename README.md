@@ -1,6 +1,8 @@
 # Ansible role Docker
 Ansible dependencies: None
+
 Platforms: Debian, Ubuntu
+
 Options:
   - Install Docker
 
