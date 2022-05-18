@@ -1,3 +1,39 @@
-- name: include docker install
-  include_tasks: ./tasks/install/docker_install_{{ ansible_distribution | lower }}.yml
-  when: docker_install
+---
+- name: merge dictionaries
+  block:
+    - include_vars:
+        file: ../../darexsu.docker/defaults/main.yml
+        name: docker_default_vars
+
+    - name: merge default and new dictionaries
+      set_fact:
+        "{{ item.key }}": "{{ docker_default_vars[item.key] | combine(merge[item.key], recursive=True)}}"
+      when: docker_default_vars[item.key] is defined
+      with_dict: "{{ merge }}"
+
+    - name: combine defaults vars with merge dictionary
+      set_fact:
+        merge: "{{ docker_default_vars | combine(merge, recursive=True)}}"
+  when: merge is defined
+
+- name: docker role is disabled
+  meta: end_play
+  when: not docker.enabled
+
+- name: -> 01_Docker_install_{{ ansible_os_family }}.yml
+  include_tasks: "./tasks/01_Docker_install_{{ ansible_os_family }}.yml"
+  when: docker_install.enabled
+
+- name: -> 02_Docker_configure_users.yml
+  include_tasks: "./tasks/02_Docker_configure_users.yml"
+  when: docker_config.enabled
+
+- name: service facts
+  ansible.builtin.service_facts:
+
+- name: "ensure docker is {{ docker['service']['state'] }}"
+  ansible.builtin.service:
+    name: docker
+    state: "{{ docker['service']['state'] }}"
+    enabled: "{{ docker['service']['enabled'] }}"
+  when: ansible_facts.services is search("docker")

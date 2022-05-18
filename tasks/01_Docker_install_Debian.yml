@@ -1,0 +1,26 @@
+---
+- name: ensure dependencies are installed.
+  ansible.builtin.apt:
+    name: "{{ docker_const[ansible_os_family]['dependencies'] }}"
+    state: present
+    update_cache: true
+
+- name: add docker repository
+  block:
+    - name: add docker gpg key.
+      ansible.builtin.apt_key:
+        url: "{{ docker_const[ansible_os_family]['docker_gpg'] }}"
+        state: present
+
+    - name: add docker repository.
+      ansible.builtin.apt_repository:
+        repo: "{{ docker_const[ansible_os_family]['docker_repo'] }}"
+        state: present
+  when: docker.repo == "third_party"
+
+- name: install docker packages.
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items: "{{ docker_const[ansible_os_family]['packages'] }}"

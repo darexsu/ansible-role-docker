@@ -1,0 +1,34 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  pre_tasks:
+    - name: Unnessessary command
+      ansible.builtin.shell:
+        cmd: "{{ lookup('env', 'ANSIBLE_COMMAND') }}"
+      when: lookup('env', 'ANSIBLE_COMMAND') | length > 0
+
+  vars:
+    merge:
+      # Docker
+      docker:
+        enabled: true
+        repo: "third_party"
+        service:
+          enabled: true
+          state: "started"
+
+      # Docker -> install
+      docker_install:
+        enabled: true
+
+      # Docker -> config
+      docker_config:
+        enabled: true
+        docker_users: ["{{ ansible_user}}"]
+
+  tasks:
+    - name: role darexsu docker
+      include_role:
+        name: darexsu.docker

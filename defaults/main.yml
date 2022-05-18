@@ -1,9 +1,30 @@
-#----------Installation----------#
-docker_install: false
-docker_install_list: [ docker-ce ]
-docker_install_add_user_to_docker_group: true
-#-Custom repository
-docker_install_repository: true
-docker_install_repository_url: "https://download.docker.com/linux"
-docker_install_repository_gpg_key: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg"
-docker_install_repository_deb: "deb [arch=amd64] {{ docker_install_repository_url }}/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
+---
+# Docker
+docker:
+  enabled: false
+  repo: "third_party"
+  service:
+    enabled: true
+    state: "started"
+
+# Docker -> install
+docker_install:
+  enabled: false
+
+# Docker -> config
+docker_config:
+  enabled: false
+  docker_users: ["{{ ansible_user}}"]
+
+# Docker -> constants
+docker_const:
+  Debian:
+    dependencies: [apt-transport-https, ca-certificates, curl, gnupg2, lsb-release]
+    packages: [docker-ce, docker-ce-cli, containerd.io, docker-compose-plugin]
+    docker_repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
+    docker_gpg: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg"
+  RedHat:
+    dependencies: []
+    packages: [docker-ce, docker-ce-cli, containerd.io, docker-compose-plugin]
+    docker_repo: "https://download.docker.com/linux/centos/$releasever/$basearch/stable"
+    docker_gpg: "https://download.docker.com/linux/centos/gpg"

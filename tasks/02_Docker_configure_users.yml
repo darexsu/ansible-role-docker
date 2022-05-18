@@ -1,0 +1,11 @@
+---
+- name: ensure group docker exists
+  ansible.builtin.group:
+    name: docker
+    state: present
+
+- name: add user to docker group
+  ansible.builtin.user:
+    name: "{{ item }}"
+    group: docker
+  with_items: "{{ docker_config.docker_users }}"
