@@ -8,9 +8,13 @@
       - [merge behaviour](#merge-behaviour)
   - Playbooks (merge version):
       - [install and configure: Docker](#install-and-configure-docker-merge-version)
+        - [install: Docker, repo: distribution](#install-docker-repo-distribution-merge-version)
+        - [install: Docker, repo: third_party](#install-docker-repo-third_party-merge-version)
         - [configure: add users to docker group](#configure-add-users-to-docker-group-merge-version)
   - Playbooks (full version):
       - [install and configure: Docker](#install-and-configure-docker-full-version)
+        - [install: Docker, repo: distribution](#install-docker-repo-distribution-merge-version)
+        - [install: Docker, repo: third_party](#install-docker-repo-third_party-merge-version)
         - [configure: add users to docker group](#configure-add-users-to-docker-group-full-version)
 
 ### Platforms
@@ -76,6 +80,50 @@ Your vars [host_vars]  -->  default vars [current role] --> default vars [includ
       include_role:
         name: darexsu.docker
 ```
+##### Install: Docker, repo: distribution (merge version)
+```yaml
+---
+- hosts: all
+  become: true
+
+  vars:
+    merge:
+      # Docker
+      docker:
+        enabled: true
+        repo: "distribution"
+
+      # Docker -> install
+      docker_install:
+        enabled: true
+
+  tasks:
+    - name: role darexsu docker
+      include_role:
+        name: darexsu.docker
+```
+##### Install: Docker, repo: third_party (merge version)
+```yaml
+---
+- hosts: all
+  become: true
+
+  vars:
+    merge:
+      # Docker
+      docker:
+        enabled: true
+        repo: "third_party"
+
+      # Docker -> install
+      docker_install:
+        enabled: true
+
+  tasks:
+    - name: role darexsu docker
+      include_role:
+        name: darexsu.docker
+```
 ##### Configure: add users to docker group (merge version)
 ```yaml
 ---
@@ -121,6 +169,54 @@ Your vars [host_vars]  -->  default vars [current role] --> default vars [includ
     docker_config:
       enabled: true
       docker_users: ["{{ ansible_user}}"]
+
+  tasks:
+    - name: role darexsu docker
+      include_role:
+        name: darexsu.docker
+```
+##### Install: Docker, repo: distribution (full version)
+```yaml
+---
+- hosts: all
+  become: true
+
+  vars:
+    # Docker
+    docker:
+      enabled: true
+      repo: "distribution"
+      service:
+        enabled: true
+        state: "started"
+
+    # Docker -> install
+    docker_install:
+      enabled: true
+
+  tasks:
+    - name: role darexsu docker
+      include_role:
+        name: darexsu.docker
+```
+##### Install: Docker, repo: third_party (full version)
+```yaml
+---
+- hosts: all
+  become: true
+
+  vars:
+    # Docker
+    docker:
+      enabled: true
+      repo: "third_party"
+      service:
+        enabled: true
+        state: "started"
+
+    # Docker -> install
+    docker_install:
+      enabled: true
 
   tasks:
     - name: role darexsu docker
