@@ -73,7 +73,7 @@ Your vars [host_vars]  -->  default vars [current role] --> default vars [includ
       # Docker -> config
       docker_config:
         enabled: true
-        docker_users: ["{{ ansible_user}}"]
+        docker_users: ["{{ ansible_user }}"]
 
   tasks:
     - name: role darexsu docker
@@ -139,7 +139,7 @@ Your vars [host_vars]  -->  default vars [current role] --> default vars [includ
       # Docker -> config
       docker_config:
         enabled: true
-        docker_users: ["{{ ansible_user}}"]
+        docker_users: ["{{ ansible_user }}"]
 
   tasks:
     - name: role darexsu docker
@@ -168,7 +168,7 @@ Your vars [host_vars]  -->  default vars [current role] --> default vars [includ
     # Docker -> config
     docker_config:
       enabled: true
-      docker_users: ["{{ ansible_user}}"]
+      docker_users: ["{{ ansible_user }}"]
 
   tasks:
     - name: role darexsu docker
@@ -241,7 +241,7 @@ Your vars [host_vars]  -->  default vars [current role] --> default vars [includ
     # Docker -> config
     docker_config:
       enabled: true
-      docker_users: ["{{ ansible_user}}"]
+      docker_users: ["{{ ansible_user }}"]
 
   tasks:
     - name: role darexsu docker
